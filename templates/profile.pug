@@ -37,9 +37,14 @@ head
         }
 body
     h1 Profile Information
+    //- Use ID variable from the server
     p Id: #{id}
+    //- Use name variable from the server
     p Name: #{name}
+    //- Use avatar variable from the server, and render avatar picture
     p Avatar: #{avatar}
     img(src=avatar)
+    //- Use email variable from the server
     p Email: #{email}
+    //- Use country variable from the server
     p Country: #{country}
