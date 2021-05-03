@@ -22,10 +22,10 @@ module.exports = async (req, res) => {
 
     res.render('profile', { // Render Profile Page
         title: "Profile Information", // Set Page Title
-        id: profile.id, // Provide ID to rendered page
+        id: profile.id || 'Unknown', // Provide ID to rendered page
         name: profile.name || 'Unknown', // Provide name to rendered page
-        avatar: profile.avatar, // Provide avatar to rendered page
-        email: profile.email, // Provide email to rendered page
+        avatar: profile.avatar || 'Unknown', // Provide avatar to rendered page
+        email: profile.email || 'Unknown', // Provide email to rendered page
         country: profile.country || 'Unknown' // Provide country to rendered page
     })
 }
