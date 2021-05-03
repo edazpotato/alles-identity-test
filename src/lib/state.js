@@ -13,21 +13,18 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const path = require('path') // Pulls in Path module
-const express = require('express') // Pulls in Express module
+// Sample function to generate a State
+module.exports = () => {
+    let outString = ''
+    let inOptions = 'abcdefghijklmnopqrstuvwxyz0123456789'
 
-const app = express() // Initializes Server
-app.set('views', path.resolve('templates')) // Set Template Directory
-app.set('view engine', 'pug') // Set Template Engine
+    for (let i = 0; i < 32; i++) {
+        outString += inOptions.charAt(
+            Math.floor(
+                Math.random() * inOptions.length
+            )
+        )
+    }
 
-const port = process.env.PORT || 9876 // Set Server Port
-
-app.get('/', require('./routes/index')) // Homepage
-
-app.get('/login', require('./routes/login')) // Login Page
-
-app.get('/callback', require('./routes/callback')) // Callback Page
-
-app.listen(port, () => { // Start Server
-    console.log(`🚀 Server Started, listening on port ${port}`) // Show Start Message
-})
+    return outString;
+}

@@ -13,21 +13,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const path = require('path') // Pulls in Path module
-const express = require('express') // Pulls in Express module
-
-const app = express() // Initializes Server
-app.set('views', path.resolve('templates')) // Set Template Directory
-app.set('view engine', 'pug') // Set Template Engine
-
-const port = process.env.PORT || 9876 // Set Server Port
-
-app.get('/', require('./routes/index')) // Homepage
-
-app.get('/login', require('./routes/login')) // Login Page
-
-app.get('/callback', require('./routes/callback')) // Callback Page
-
-app.listen(port, () => { // Start Server
-    console.log(`🚀 Server Started, listening on port ${port}`) // Show Start Message
-})
+module.exports = (req, res) => {
+    res.render('index', { title: 'Alles Identity Test' }) // Render the index page
+}

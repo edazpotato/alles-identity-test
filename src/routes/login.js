@@ -13,21 +13,16 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const path = require('path') // Pulls in Path module
-const express = require('express') // Pulls in Express module
+const { Identity } = require('@alleshq/identity') // Pulls in Alles Identity SDK
+require('dotenv').config() // Pulls in environment variables
 
-const app = express() // Initializes Server
-app.set('views', path.resolve('templates')) // Set Template Directory
-app.set('view engine', 'pug') // Set Template Engine
+module.exports = async (req, res) => {
+    const identity = new Identity(process.env.APP_ID, process.env.APP_SECRET) // Creates new Identity constructor, with credentials
 
-const port = process.env.PORT || 9876 // Set Server Port
-
-app.get('/', require('./routes/index')) // Homepage
-
-app.get('/login', require('./routes/login')) // Login Page
-
-app.get('/callback', require('./routes/callback')) // Callback Page
-
-app.listen(port, () => { // Start Server
-    console.log(`🚀 Server Started, listening on port ${port}`) // Show Start Message
-})
+    await identity.createFlow({
+        callback: process.env.CALLBACK_URL, // Callback URL that the Identity server redirects users to
+        state: require('../lib/state') // User State
+    }).then((response) => {
+        res.redirect(response) // Redirect to Callback
+    })
+}
