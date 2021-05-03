@@ -14,5 +14,5 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 module.exports = (req, res) => {
-    res.render('index', { title: 'Alles Identity Test' }) // Render the index page
-}
+	res.render("home", { title: "Alles Identity Test" }); // Render the home page
+};

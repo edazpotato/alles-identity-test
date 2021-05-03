@@ -13,21 +13,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const path = require('path') // Pulls in Path module
-const express = require('express') // Pulls in Express module
+const path = require("path"); // Pulls in Path module
+const express = require("express"); // Pulls in Express module
 
-const app = express() // Initializes Server
-app.set('views', path.resolve('templates')) // Set Template Directory
-app.set('view engine', 'pug') // Set Template Engine
+require("dotenv").config(); // Load enviroment variables
 
-const port = process.env.PORT || 9876 // Set Server Port
+const app = express(); // Initializes Server
+app.set("views", path.resolve("templates")); // Set Template Directory
+app.set("view engine", "pug"); // Set Template Engine
 
-app.get('/', require('./routes/index')) // Homepage
+app.get("/", require("./routes/home")); // Homepage
 
-app.get('/login', require('./routes/login')) // Login Page
+app.get("/login", require("./routes/login")); // Login Page
 
-app.get('/callback', require('./routes/callback')) // Callback Page
+app.get("/callback", require("./routes/callback")); // Callback Page
 
-app.listen(port, () => { // Start Server
-    console.log(`🚀 Server Started, listening on port ${port}`) // Show Start Message
-})
+if (!process.env.PORT) process.env.PORT = 9876; // Set the server port if it's not currently set
+const port = process.env.PORT; // Get the server port
+
+app.listen(port, () => {
+	// Start Server
+	console.log(`🚀 Server Started, listening on port ${port}`); // Show Start Message
+});
